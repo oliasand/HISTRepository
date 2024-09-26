@@ -1,0 +1,34 @@
+---
+title: "R Digital Tool Exercise"
+output: html_document
+date: "2024-09-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list = ls())
+```
+
+```{r}
+trade <- read.csv("C:/Users/olean/Downloads/historical_trade_data.csv")
+
+print(head(trade))
+
+trade[trade$Exports > 200000,]
+
+TradeBalance <- (trade$Exports- trade$Imports)
+trade['TradeBalance'] <- TradeBalance
+print(trade)
+
+library(ggplot2)
+library(dplyr)
+
+trade %>%
+  ggplot(aes(x = Year,
+             y = TradeBalance)) +
+  geom_smooth() +
+  labs(title = "Trade Balance over Time",
+       x = "Time",
+       y = "Trade Balance")
+```
+
